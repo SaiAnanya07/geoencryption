@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoCrypt Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-overlay">
+        <video autoplay loop muted playsinline>
+            <source src="{{ url_for('static', filename='istockphoto-1356546774-640_adpp_is.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="container">
+        <div class="profile-card">
+            <h2>Welcome, {{ username }} <span class="geo-icon">📍</span></h2>
+            <div class="location-box">
+                <p id="demo">Fetching your location...</p>
+                <button class="refresh-btn" onclick="getLocation()">Refresh Location</button>
+            </div>
+            <h3>Your Messages</h3>
+            <ul id="messages-list" class="messages-list"></ul>
+            <div class="action-buttons">
+                <a href="/send_message"><button class="send-btn">Send Message</button></a>
+                <a href="/logout"><button class="logout-btn">Logout</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("demo").innerHTML = "Geolocation not supported.";
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            document.getElementById("demo").innerHTML = `Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)}`;
+
+            fetch('/profile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ latitude: lat, longitude: lon })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById("messages-list");
+                list.innerHTML = "";
+                data.messages.forEach(msg => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<strong>${msg.sender}</strong>: ${msg.message}`;
+                    list.appendChild(li);
+                });
+            })
+            .catch(error => {
+                document.getElementById("demo").innerHTML = "Error fetching messages.";
+                console.error(error);
+            });
+        }
+
+        function showError(error) {
+            document.getElementById("demo").innerHTML = `Error: ${error.message}`;
+        }
+
+        window.onload = getLocation;
+    </script>
+</body>
+</html>

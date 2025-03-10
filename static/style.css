@@ -1,0 +1,289 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif; /* Add <link> for Google Fonts if desired */
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f4f8; /* Fallback color */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Map background 
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://via.placeholder.com/1920x1080?text=Map') no-repeat center/cover;
+    opacity: 0.15;
+    z-index: -1;
+}*/
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 1;
+    overflow:visible;
+}
+
+.background-overlay video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Card (shared for all pages) */
+.login-card, .signup-card, .profile-card, .send-message-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Wider for map */
+    text-align: center;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.geo-icon {
+    color: #007BFF; /* Geolocation blue */
+    font-size: 1.2rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 1.5rem 0 0.5rem;
+}
+
+/* Input fields */
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.75rem 2.5rem 0.75rem 2rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+    padding: 0.75rem 1rem;
+}
+
+input:focus, textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%; /* Ensure it’s vertically centered */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 1rem; /* Match font size for consistency */
+    line-height: 1; /* Prevent line-height issues */
+}
+
+/* Search group */
+.search-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.search-group input {
+    flex: 1;
+}
+
+/* Map container */
+.map-container {
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+}
+
+/* Coordinates group */
+.coords-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.coords-group .input-group {
+    flex: 1;
+}
+
+/* Buttons */
+.login-btn, .signup-btn, .send-btn, .search-btn, .logout-btn, .refresh-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.login-btn, .signup-btn, .send-btn, .search-btn {
+    background: linear-gradient(90deg, #007BFF, #00C4B4);
+    color: white;
+}
+
+.logout-btn {
+    background: #ff4d4d;
+    color: white;
+}
+
+.refresh-btn {
+    background: #007BFF;
+    color: white;
+    padding: 0.5rem 1rem;
+}
+
+.login-btn:hover, .signup-btn:hover, .send-btn:hover, .search-btn:hover, .logout-btn:hover, .refresh-btn:hover {
+    transform: scale(1.02);
+}
+
+/* Messages list (for profile) */
+.messages-list {
+    list-style: none;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.messages-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.messages-list li:last-child {
+    border-bottom: none;
+}
+
+.messages-list strong {
+    color: #007BFF;
+}
+
+/* Links and text */
+p {
+    margin-top: 1.5rem;
+    color: #666;
+}
+
+.geo-teaser {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #007BFF;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Flash messages */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+}
+
+.flash-messages p {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: white;
+}
+
+.flash-messages .success {
+    background: #28a745;
+}
+
+.flash-messages .error {
+    background: #dc3545;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .login-card, .signup-card, .profile-card, .send-message-card {
+        padding: 1.5rem;
+        max-width: 90%;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .search-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .coords-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .map-container {
+        height: 200px;
+    }
+}
