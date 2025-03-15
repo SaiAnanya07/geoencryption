@@ -6,22 +6,8 @@ from math import radians, sin, cos, sqrt, atan2
 from cs_proj import SecureCrypto, GPSLocation
 import logging
 import time
-import os
 
-firebase_config = {
-    "type": "service_account",
-    "project_id": os.getenv("FIREBASE_PROJECT_ID"),
-    "private_key_id": os.getenv("FIREBASE_PRIVATE_KEY_ID"),
-    "private_key": os.getenv("FIREBASE_PRIVATE_KEY").replace('\\n', '\n'),  # Ensure key formatting
-    "client_email": os.getenv("FIREBASE_CLIENT_EMAIL"),
-    "client_id": os.getenv("FIREBASE_CLIENT_ID"),
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": os.getenv("FIREBASE_CLIENT_X509_CERT_URL")
-}
-
-cred = credentials.Certificate(firebase_config)
+cred = credentials.Certificate("geocrypt-35477-firebase-adminsdk-fbsvc-3776f07fc7.env")
 firebase_admin.initialize_app(cred)
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
