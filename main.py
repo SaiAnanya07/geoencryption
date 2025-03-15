@@ -7,7 +7,7 @@ from cs_proj import SecureCrypto, GPSLocation
 import logging
 import time
 
-cred = credentials.Certificate("geocrypt-35477-firebase-adminsdk-fbsvc-3776f07fc7.env")
+cred = credentials.Certificate("geocrypt-35477-firebase-adminsdk-fbsvc-3776f07fc7.json")
 firebase_admin.initialize_app(cred)
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
